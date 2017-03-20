@@ -2,6 +2,7 @@
 
 namespace Ten24\Tests\Fomponent\Formatter;
 
+use PHPUnit\Framework\TestCase;
 use Ten24\Component\Formatter\PhoneNumberFormatter;
 
 /**
@@ -9,7 +10,7 @@ use Ten24\Component\Formatter\PhoneNumberFormatter;
  *
  * @package Ten24\UtilitiesBundle\Tests\Formatter
  */
-class PhoneNumberTest extends \PHPUnit_Framework_TestCase
+class PhoneNumberTest extends TestCase
 {
     /**
      * @var
@@ -30,7 +31,7 @@ class PhoneNumberTest extends \PHPUnit_Framework_TestCase
     public function testGetSetPhoneNumber()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals($this->phoneNumber, $this->formatter->getPhoneNumber());
+        self::assertEquals($this->phoneNumber, $this->formatter->getPhoneNumber());
     }
 
     public function testGetNullComponent()
@@ -42,48 +43,48 @@ class PhoneNumberTest extends \PHPUnit_Framework_TestCase
     public function testGetCountryCode()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals('+11', $this->formatter->getCountryCode());
+        self::assertEquals('+11', $this->formatter->getCountryCode());
     }
 
     public function testGetCountryCodeComponent()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals('+11', $this->formatter->getComponent(PhoneNumberFormatter::COUNTRY_CODE));
+        self::assertEquals('+11', $this->formatter->getComponent(PhoneNumberFormatter::COUNTRY_CODE));
     }
 
     public function testGetAreaCodeComponent()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals('123', $this->formatter->getComponent(PhoneNumberFormatter::AREA_CODE));
+        self::assertEquals('123', $this->formatter->getComponent(PhoneNumberFormatter::AREA_CODE));
     }
 
     public function testGetAreaCode()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals('123', $this->formatter->getAreaCode());
+        self::assertEquals('123', $this->formatter->getAreaCode());
     }
 
     public function testGetPrefixComponent()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals('456', $this->formatter->getComponent(PhoneNumberFormatter::PREFIX));
+        self::assertEquals('456', $this->formatter->getComponent(PhoneNumberFormatter::PREFIX));
     }
 
     public function testGetPrefix()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals('456', $this->formatter->getPrefix());
+        self::assertEquals('456', $this->formatter->getPrefix());
     }
 
     public function testGetLineNumberComponent()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals('7890', $this->formatter->getComponent(PhoneNumberFormatter::LINE_NUMBER));
+        self::assertEquals('7890', $this->formatter->getComponent(PhoneNumberFormatter::LINE_NUMBER));
     }
 
     public function testGetLineNumber()
     {
         $this->formatter->setPhoneNumber($this->phoneNumber);
-        $this->assertEquals('7890', $this->formatter->getLineNumber());
+        self::assertEquals('7890', $this->formatter->getLineNumber());
     }
 }
