@@ -2,6 +2,8 @@
 
 namespace Ten24\Component\Formatter;
 
+use BadFunctionCallException;
+
 /**
  * Class PhoneNumberFormatter
  *
@@ -83,6 +85,11 @@ class PhoneNumberFormatter
     private $components;
 
     /**
+     * @var string
+     */
+    private $format;
+
+    /**
      * Constructor
      *
      * @param string $format
@@ -90,7 +97,7 @@ class PhoneNumberFormatter
      */
     public function __construct($phoneNumber = null, $format = self::FORMAT_NA)
     {
-        $this->format = $format;
+        $this->format      = $format;
         $this->phoneNumber = $phoneNumber;
     }
 
@@ -98,12 +105,11 @@ class PhoneNumberFormatter
      * Get formatted phone number for display
      * This assumes a flattened format like 11235551234
      *
-     * @return string
+     * @return string|null
      */
     public function format()
     {
-        if (strlen($this->phoneNumber) >= 7)
-        {
+        if (strlen($this->phoneNumber) >= 7) {
             return sprintf($this->format,
                 $this->getCountryCode(),
                 $this->getAreaCode(),
@@ -121,7 +127,7 @@ class PhoneNumberFormatter
      *
      * @return string
      */
-    public function reverseFormat()
+    public function reverseFormat(): string
     {
         $pattern = '/[^\+,0-9+]/';
 
@@ -133,7 +139,7 @@ class PhoneNumberFormatter
      *
      * @return string
      */
-    public function getCountryCode()
+    public function getCountryCode(): string
     {
         return $this->getComponent(self::COUNTRY_CODE);
     }
@@ -143,7 +149,7 @@ class PhoneNumberFormatter
      *
      * @return string
      */
-    public function getAreaCode()
+    public function getAreaCode(): string
     {
         return $this->getComponent(self::AREA_CODE);
     }
@@ -153,7 +159,7 @@ class PhoneNumberFormatter
      *
      * @return string
      */
-    public function getPrefix()
+    public function getPrefix(): string
     {
         return $this->getComponent(self::PREFIX);
     }
@@ -163,7 +169,7 @@ class PhoneNumberFormatter
      *
      * @return string
      */
-    public function getLineNumber()
+    public function getLineNumber(): string
     {
         return $this->getComponent(self::LINE_NUMBER);
     }
@@ -172,12 +178,12 @@ class PhoneNumberFormatter
      * Get phone number component
      *
      * @param null $component
-     * @return null
+     *
+     * @return string|null
      */
     public function getComponent($component = null)
     {
-        if (null === $this->components)
-        {
+        if (null === $this->components) {
             $pattern = '/
                 (?<countryCode>(\+?\d{1,2})?\D*)         # optional country code
                 (?<areaCode>(\d{3})?\D*)                 # optional area code
@@ -187,8 +193,7 @@ class PhoneNumberFormatter
                 (?<extension>(\d*))                      # optional extension
                 /x';
 
-            if (preg_match($pattern, $this->phoneNumber, $matches))
-            {
+            if (preg_match($pattern, $this->phoneNumber, $matches)) {
                 // Matches will be
                 // Array
                 //(
@@ -204,26 +209,19 @@ class PhoneNumberFormatter
             }
         }
 
-        switch ($component)
-        {
+        switch ($component) {
             case self::COUNTRY_CODE:
                 return !empty($this->components['countryCode']) ? $this->components['countryCode'] : '+1';
-                break;
             case self::AREA_CODE:
                 return $this->components['areaCode'];
-                break;
             case self::PREFIX:
                 return $this->components['prefix'];
-                break;
             case self::LINE_NUMBER:
                 return $this->components['lineNumber'];
-                break;
             case self::EXTENSION_DELIMITER:
                 return $this->components['extensionDelimiter'];
-                break;
             case self::EXTENSION:
                 return $this->components['extension'];
-                break;
             default:
                 return null;
         }
@@ -234,7 +232,7 @@ class PhoneNumberFormatter
      *
      * @return string
      */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
     }
@@ -254,7 +252,7 @@ class PhoneNumberFormatter
      *
      * @return string
      */
-    public function getDisplayFormat()
+    public function getDisplayFormat(): string
     {
         return $this->displayFormat;
     }
@@ -263,13 +261,13 @@ class PhoneNumberFormatter
      * Sets the display format
      *
      * @param string $displayFormat
+     *
      * @throws \BadFunctionCallException
      */
     public function setDisplayFormat($displayFormat = self::FORMAT_NA)
     {
-        if (substr_count($displayFormat, '%d') !== 4)
-        {
-            throw new \BadFunctionCallException('The format passed must be passed in the sprintf() format, and have exactly 4 digit components');
+        if (substr_count($displayFormat, '%d') !== 4) {
+            throw new BadFunctionCallException('The format passed must be passed in the sprintf() format, and have exactly 4 digit components');
         }
 
         $this->displayFormat = $displayFormat;

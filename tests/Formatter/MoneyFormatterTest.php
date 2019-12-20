@@ -1,9 +1,10 @@
 <?php
 
-namespace Ten24\Tests\Fomponent\Formatter;
+namespace Ten24\Tests\Component\Formatter;
 
 use PHPUnit\Framework\TestCase;
 use Ten24\Component\Formatter\MoneyFormatter;
+use TypeError;
 
 /**
  * Class MoneyFormatterTest
@@ -20,10 +21,11 @@ class MoneyFormatterTest extends TestCase
 
     public function testDollarsToCentsWithNonNumerical()
     {
-        /** @see http://us2.php.net/manual/en/language.types.string.php#language.types.string.conversion */
         $value = 'I am NOT a number';
-        $res = MoneyFormatter::dollarsToCents($value);
-        self::assertEquals(0, $res);
+        $this->expectException(TypeError::class);
+        self::expectExceptionMessageRegExp('/must be of the type float, string given/');
+
+        MoneyFormatter::dollarsToCents($value);
     }
 
     public function testCentsToDollars()
@@ -36,8 +38,8 @@ class MoneyFormatterTest extends TestCase
     {
         $value = 'I am NOT a number';
 
-        self::expectException(\RuntimeException::class);
-        self::expectExceptionMessage('Cannot parse a non-numerical value "'.$value.'".');
+        self::expectException(TypeError::class);
+        self::expectExceptionMessageRegExp('/must be of the type integer, string given/');
 
         MoneyFormatter::centsToDollars($value);
     }
