@@ -38,14 +38,14 @@ class PostalCodeFormatter
     /**
      * Constructor
      *
-     * @param null   $postalCode
-     * @param string $displayFormat
+     * @param string|null $postalCode
+     * @param string      $displayFormat
      *
      */
-    public function __construct($postalCode = null, $displayFormat = self::FORMAT_CANADA)
+    public function __construct(string $postalCode = null, string $displayFormat = self::FORMAT_CANADA)
     {
         $this->displayFormat = $displayFormat;
-        $this->postalCode = $postalCode;
+        $this->postalCode    = $postalCode;
     }
 
     /**
@@ -54,25 +54,19 @@ class PostalCodeFormatter
      *
      * @return string
      */
-    public function format()
+    public function format(): string
     {
-        switch ($this->displayFormat)
-        {
+        switch ($this->displayFormat) {
             case self::FORMAT_CANADA:
-                if (preg_match($this->displayFormat, $this->postalCode, $matches) && count($matches) === 3)
-                {
+                if (preg_match($this->displayFormat, $this->postalCode, $matches) && count($matches) === 3) {
                     return strtoupper(sprintf('%s %s', $matches[1], $matches[2]));
                 }
 
                 return $this->postalCode;
 
-                break;
             case self::FORMAT_USA:
-                return $this->postalCode;
-                break;
             default:
                 return $this->postalCode;
-                break;
         }
     }
 
@@ -83,7 +77,7 @@ class PostalCodeFormatter
      *
      * @return string
      */
-    public function reverseFormat()
+    public function reverseFormat(): string
     {
         $pattern = '/[^a-z0-9+]/i';
 
@@ -95,7 +89,7 @@ class PostalCodeFormatter
      *
      * @return string
      */
-    public function getPostalCode()
+    public function getPostalCode(): string
     {
         return $this->postalCode;
     }
@@ -105,7 +99,7 @@ class PostalCodeFormatter
      *
      * @param string $postalCode
      */
-    public function setPostalCode($postalCode = null)
+    public function setPostalCode(string $postalCode = null)
     {
         $this->postalCode = $postalCode;
     }
@@ -115,7 +109,7 @@ class PostalCodeFormatter
      *
      * @return string
      */
-    public function getDisplayFormat()
+    public function getDisplayFormat(): string
     {
         return $this->displayFormat;
     }
@@ -125,7 +119,7 @@ class PostalCodeFormatter
      *
      * @param string $displayFormat
      */
-    public function setDisplayFormat($displayFormat = self::FORMAT_CANADA)
+    public function setDisplayFormat(string $displayFormat = self::FORMAT_CANADA)
     {
         $this->displayFormat = $displayFormat;
     }

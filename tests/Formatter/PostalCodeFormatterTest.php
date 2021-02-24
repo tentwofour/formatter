@@ -1,6 +1,6 @@
 <?php
 
-namespace Ten24\Tests\Fomponent\Formatter;
+namespace Ten24\Tests\Component\Formatter;
 
 use PHPUnit\Framework\TestCase;
 use Ten24\Component\Formatter\PostalCodeFormatter;

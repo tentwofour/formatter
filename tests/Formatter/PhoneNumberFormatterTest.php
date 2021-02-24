@@ -1,6 +1,6 @@
 <?php
 
-namespace Ten24\Tests\Fomponent\Formatter;
+namespace Ten24\Tests\Component\Formatter;
 
 use PHPUnit\Framework\TestCase;
 use Ten24\Component\Formatter\PhoneNumberFormatter;
@@ -10,7 +10,7 @@ use Ten24\Component\Formatter\PhoneNumberFormatter;
  *
  * @package Ten24\UtilitiesBundle\Tests\Formatter
  */
-class PhoneNumberTest extends TestCase
+class PhoneNumberFormatterTest extends TestCase
 {
     /**
      * @var
