@@ -95,7 +95,7 @@ class PhoneNumberFormatter
      * @param string $format
      * @param string $phoneNumber
      */
-    public function __construct($phoneNumber = null, $format = self::FORMAT_NA)
+    public function __construct(string $phoneNumber = '', $format = self::FORMAT_NA)
     {
         $this->format      = $format;
         $this->phoneNumber = $phoneNumber;
@@ -105,7 +105,7 @@ class PhoneNumberFormatter
      * Get formatted phone number for display
      * This assumes a flattened format like 11235551234
      *
-     * @return string|null
+     * @return string
      */
     public function format()
     {
@@ -117,7 +117,7 @@ class PhoneNumberFormatter
                 $this->getLineNumber());
         }
 
-        return null;
+        return '';
     }
 
     /**
