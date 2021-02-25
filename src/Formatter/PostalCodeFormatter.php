@@ -38,11 +38,11 @@ class PostalCodeFormatter
     /**
      * Constructor
      *
-     * @param string|null $postalCode
+     * @param string $postalCode
      * @param string      $displayFormat
      *
      */
-    public function __construct(string $postalCode = null, string $displayFormat = self::FORMAT_CANADA)
+    public function __construct(string $postalCode = '', string $displayFormat = self::FORMAT_CANADA)
     {
         $this->displayFormat = $displayFormat;
         $this->postalCode    = $postalCode;

@@ -27,12 +27,19 @@ class PostalCodeFormatterTest extends TestCase
         $postalCode = 'S4T0H0';
         $this->formatter->setPostalCode($postalCode);
         self::assertEquals($postalCode, $this->formatter->getPostalCode());
+
+        $postalCode = '';
+        $this->formatter->setPostalCode($postalCode);
+        self::assertEquals($postalCode, $this->formatter->getPostalCode());
     }
 
     public function testFormat()
     {
         $this->formatter->setPostalCode('S4T0H0');
         self::assertEquals('S4T 0H0', $this->formatter->format());
+
+        $this->formatter->setPostalCode('');
+        self::assertEquals('', $this->formatter->format());
 
         $this->formatter->setDisplayFormat(PostalCodeFormatter::FORMAT_USA);
         $this->formatter->setPostalCode('12345');
@@ -43,6 +50,9 @@ class PostalCodeFormatterTest extends TestCase
     {
         $this->formatter->setPostalCode('S4T 0H0');
         self::assertEquals('S4T0H0', $this->formatter->reverseFormat());
+
+        $this->formatter->setPostalCode('');
+        self::assertEquals('', $this->formatter->reverseFormat());
 
         $this->formatter->setDisplayFormat(PostalCodeFormatter::FORMAT_USA);
         $this->formatter->setPostalCode('12345');
