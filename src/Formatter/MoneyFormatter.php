@@ -23,6 +23,6 @@ class MoneyFormatter
      */
     static public function centsToDollars(int $cents): float
     {
-        return number_format((float)$cents / 100, 2);
+        return (float) sprintf('%.2f', ($cents / 100));
     }
 }
